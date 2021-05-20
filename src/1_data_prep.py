@@ -25,9 +25,9 @@ project_id = "data-studio-260217"
 filename = "../data/raw/fy21_hs_survey_analysis.pkl"
 
 
-replace_data = True
+replace_data = False
 
-if replace_data == False:
+if replace_data == True:
     # Read from CSV if already written to avoid repeatedly transferring data from BigQuery
     df = pd.read_pickle(filename)
 
@@ -40,21 +40,33 @@ else:
     column_df = pd.read_gbq(columns_query, project_id=project_id)
     column_df.to_pickle("../data/raw/fy21_hs_survey_columns.pkl")
 
-project_id_old = "data-warehouse-289815"
-fy18_query = "SELECT * FROM `data-warehouse-289815.surveys.fy18_hs_survey`"
-fy18_df = pd.read_gbq(fy18_query, project_id=project_id_old)
-fy18_df.to_pickle("../data/raw/fy18_hs_survey_analysis.pkl")
+#  Old data
+replace_old_data = False
+if replace_old_data == False:
+    fy18_df = pd.read_pickle("../data/raw/fy18_hs_survey_analysis.pkl")
+    fy19_df = pd.read_pickle("../data/raw/fy19_hs_survey_analysis.pkl")
+    fy20_df = pd.read_pickle("../data/raw/fy20_hs_survey_analysis.pkl")
 
 
-fy19_query = "SELECT * FROM `data-warehouse-289815.surveys.fy19_hs_survey`"
-fy19_df = pd.read_gbq(fy19_query, project_id=project_id_old)
-fy19_df.to_pickle("../data/raw/fy19_hs_survey_analysis.pkl")
-fy19_df = pd.read_pickle("../data/raw/fy19_hs_survey_analysis.pkl")
+else:
+    project_id_old = "data-warehouse-289815"
+    fy18_query = "SELECT * FROM `data-warehouse-289815.surveys.fy18_hs_survey`"
+    fy18_df = pd.read_gbq(fy18_query, project_id=project_id_old)
+    fy18_df.to_pickle("../data/raw/fy18_hs_survey_analysis.pkl")
 
-fy20_query = "SELECT * FROM `data-warehouse-289815.surveys.fy20_hs_survey`"
-fy20_df = pd.read_gbq(fy20_query, project_id=project_id_old)
-fy20_df.to_pickle("../data/raw/fy20_hs_survey_analysis.pkl")
-fy20_df = pd.read_pickle("../data/raw/fy20_hs_survey_analysis.pkl")
+    fy19_query = "SELECT * FROM `data-warehouse-289815.surveys.fy19_hs_survey`"
+    fy19_df = pd.read_gbq(fy19_query, project_id=project_id_old)
+    fy19_df.to_pickle("../data/raw/fy19_hs_survey_analysis.pkl")
+    fy19_df = pd.read_pickle("../data/raw/fy19_hs_survey_analysis.pkl")
+
+    fy20_query = "SELECT * FROM `data-warehouse-289815.surveys.fy20_hs_survey`"
+    fy20_df = pd.read_gbq(fy20_query, project_id=project_id_old)
+    fy20_df.to_pickle("../data/raw/fy20_hs_survey_analysis.pkl")
+
+fy21_ps_query = "SELECT * FROM `data-studio-260217.surveys.fy21_ps_survey_analysis`"
+fy21_ps_df = pd.read_gbq(fy21_ps_query, project_id=project_id)
+fy21_ps_df.to_pickle("../data/raw/fy21_ps_survey_analysis.pkl")
+
 
 fy18_df.rename(
     columns={

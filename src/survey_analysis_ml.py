@@ -62,7 +62,8 @@ export_graphviz(
     class_names=["Negative NPS Score", "Positive NPS Score"],
 )
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
-graph.write_png("output_detractor.png")
+# graph.write_png("output_detractor.png")
+graph.write_png("output_promoter.png")
 Image(graph.create_png())
 
 
@@ -84,7 +85,7 @@ X_train, X_test, y_train, y_test = train_test_split(
 lrclf = LogisticRegression(max_iter=1000)
 lrclf.fit(X_train, y_train.values.ravel())
 
-y_pred = dtclf.predict(X_test)
+y_pred = lrclf.predict(X_test)
 
 print("Accuracy:", metrics.accuracy_score(y_test, y_pred))
 

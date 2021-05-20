@@ -1,10 +1,15 @@
 import pandas as pd
-import altair as alt
 import datapane as dp
 import variables
 import helpers
 import matplotlib.pyplot as plt
 import matplotlib as mpl
+
+
+class SafeDict(dict):
+    def __missing__(self, key):
+        return "{{" + key + "}}"
+
 
 # dp.File(file='../images/largest_since_fy18_plot.png')
 
@@ -12,6 +17,13 @@ colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
 
 filename = "data/raw/fy21_hs_survey_analysis.pkl"
 df = pd.read_pickle(filename)
+
+
+executive_summary_pt1 = open("text/executive_summary_pt1.md", "r").read()
+
+executive_summary_pt1 = executive_summary_pt1.format_map(
+    SafeDict(previous_range="80% - 90%", nps_score="53%")
+)
 
 
 most_positive_answers = pd.read_pickle("data/interim/most_positive_answers.pkl")
@@ -26,14 +38,14 @@ most_positive_sites_string = ", ".join(
     most_positive_sites[:-2] + [", and ".join(most_positive_sites[-2:])]
 )
 
-response_rate = "68%"
+response_rate = "80%"
 
-nps_score = "53%"
+nps_score = "52%"
 
 report = dp.Report(
-    dp.Text(file="text/executive_summary_pt1.md").format(
-        nps_score=nps_score,
-        responce_rate=response_rate,
+    dp.Text(executive_summary_pt1).format(
+        # nps_score=nps_score,
+        # responce_rate=response_rate,
         most_positive=most_positive_answers,
         most_negative=most_negative_answers,
     ),
@@ -49,7 +61,7 @@ report = dp.Report(
         columns=2,
     ),
     dp.Text(file="text/executive_summary_pt2.md"),
-    type=dp.ReportType.REPORT
+    type=dp.ReportType.ARTICLE
     # dp.Group(*plots[:2], columns=2),
     # plots[2],
     # dp.DataTable(subset, caption=f'Dataset for {countries}'),

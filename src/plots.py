@@ -19,8 +19,8 @@ plt.style.use("college_track")
 mpl.rcParams.update({"font.size": 8})
 
 
-mpl.rcParams.update({"figure.figsize": [3.85, 3.75]})
-mpl.rcParams.update({"figure.dpi": 130})
+mpl.rcParams.update({"figure.figsize": [4.0, 3.95]})
+mpl.rcParams.update({"figure.dpi": 150})
 
 colors = plt.rcParams["axes.prop_cycle"].by_key()["color"]
 
