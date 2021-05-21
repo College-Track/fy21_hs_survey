@@ -60,8 +60,18 @@ report = dp.Report(
         dp.File(file="images/smallest_since_fy20_plot.png"),
         columns=2,
     ),
-    dp.Text(file="text/executive_summary_pt2.md"),
-    type=dp.ReportType.ARTICLE
+    dp.Text(file="text/executive_summary_pt2.md").format(
+        ct_site_plot=dp.File(file="images/ct_site_section_plot.png"),
+        academic_affairs_plot=dp.File(file="images/academic_affairs_section_plot.png"),
+        student_life_plot=dp.File(file="images/student_life_section_plot.png"),
+        college_prep_plot=dp.File(file="images/college_prep_section_plot.png"),
+        coaching_plot=dp.File(file="images/coaching_programming_section_plot.png"),
+        wellness_plot=dp.File(file="images/wellness_programming_section_plot.png"),
+        virtual_programming_plot=dp.File(
+            file="images/virtual_programming_section_plot.png"
+        ),
+    ),
+    type=dp.ReportType.REPORT
     # dp.Group(*plots[:2], columns=2),
     # plots[2],
     # dp.DataTable(subset, caption=f'Dataset for {countries}'),

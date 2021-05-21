@@ -140,7 +140,7 @@ def plot_line_graph(df, title):
 def plot_bar_graph(df, title):
     fig, ax = plt.subplots()
     df.sort_values(by="FY21", inplace=True, ascending=False)
-    labels = ["\n".join(wrap(l, 25)) for l in df.index]
+    labels = ["\n".join(wrap(l, 35)) for l in df.index]
 
     fig.suptitle(title, fontsize=12)
 
@@ -157,6 +157,15 @@ def plot_bar_graph(df, title):
 
     ax.set_ylabel("Question")
     ax.xaxis.set_major_formatter(mtick.PercentFormatter(1, decimals=0))
+    for p in ax.patches:
+        width = p.get_width()  # get bar length
+        ax.text(
+            width + 0.01,  # set the text at 1 unit right of the bar
+            p.get_y() + p.get_height() / 2,  # get Y coordinate + X coordinate / 2
+            "{:.0%}".format(width),  # set variable to display, 2 decimals
+            ha="left",  # horizontal alignment
+            va="center",
+        )  # vertical alignment
     return fig
 
 
