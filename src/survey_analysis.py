@@ -17,6 +17,7 @@ column_dict = (
     .set_index("clean_columns")
     .to_dict()["original_columns"]
 )
+
 historical_since_fy18 = pd.read_pickle("../data/interim/positive_growth_since_fy18.pkl")
 
 historical_since_fy20 = pd.read_pickle("../data/interim/positive_growth_since_fy20.pkl")
