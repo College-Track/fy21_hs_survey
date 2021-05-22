@@ -63,7 +63,7 @@ export_graphviz(
 )
 graph = pydotplus.graph_from_dot_data(dot_data.getvalue())
 # graph.write_png("output_detractor.png")
-graph.write_png("output_promoter.png")
+graph.write_png("output_detractor.png")
 Image(graph.create_png())
 
 

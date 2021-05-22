@@ -25,9 +25,9 @@ project_id = "data-studio-260217"
 filename = "../data/raw/fy21_hs_survey_analysis.pkl"
 
 
-replace_data = False
+replace_data = True
 
-if replace_data == True:
+if replace_data == False:
     # Read from CSV if already written to avoid repeatedly transferring data from BigQuery
     df = pd.read_pickle(filename)
 

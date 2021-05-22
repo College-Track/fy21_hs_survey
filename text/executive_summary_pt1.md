@@ -13,7 +13,7 @@ Our overall NPS score was {nps_score}, a dip from last year's 55%, but still abo
 
 Boyle Heights led the way with an NPS score of 69%, edging out The Durant Center who also had a strong score of 67%. San Francisco, Aurora, Oakland, and Watts were the other sites with above a 50% NPS score. 
 
-Of note, Watts had the third highest rate of promoters, with 66% of students responding positively, but also the forth highest rate of detractors with 15% of students responding less favorably.
+Of note, Watts had the third highest rate of promoters, with 66% of students identified as such, but also the forth highest rate of detractors with 15% of students responding less favorably.
 
 
 #### General Highlights
@@ -27,7 +27,7 @@ Likewise, across all questions, the following questions were the least positive.
 
 Note, many of the questions with less positive responses were new questions added to understand how students were handling remote education.
 
-A few sites stood out as having particular positive responses across all their questions. Boyle Heights, Ward 8, and The Durant Center all had most students answering positively to over 60% of questions asked.
+A few sites stood out as having particular positive responses across all their questions. The Durant Center, Boyle Heights, Ward 8, and Denver all had most students answering positively to over 60% of questions asked.
 
 The Durant Center, in particular, had a notably higher positive response rate than the College Track average on about 23% of all questions asked. 
 
@@ -35,11 +35,11 @@ Across high school classes, the Class of 2021 had the most positive outlook on C
 
 Unsurprisingly, students identified as a "Detractor" - as determined by our NPS question, had notably less positive answers on almost all (87%) of questions asked. Students marked as "Passive" also had a less favorable outlook, but only on around 30% of questions. No other student grouping across all of College Track had a consistently less positive outlook on questions.
 
-Males responded positively to over 60% of questions compared to females who only answered positively 44% of the time.
+Males responded positively to over 60% of questions compared to females who only answered positively 46% of the time.
 
-Our African Americans and Latinx students (of all genders) responded positively to roughly 50% of questions, but notably our African American, male students responded positively to 70% of questions. This was by far our highest positive response rate for any ethnicity/gender combination.
+Among ethnicities served, our African Americans led the way with positive responses on 61% of questions followed by our Latinx students who responded positively to 51% of questions.
 
-Finally, students with above a 3.25 GPA answered questions over 50% of questions positively, compared to students with below a 2.5 GPA answering only 42% of questions favorably.
+When looking at positivity rate by students' current cumulative GPA, the data is a bit more mixed. Students falling into a GPA range of 2.5 - 3.0 had the highest outlook on questions, responding positively to around 58% of questions. Compared to students with less than a 2.5 GPA who responded positively only 44% of the time. All other GPA groupings saw students respond positively around 50% - 54% of questions.
 
 #### Trends from Previous Years
 

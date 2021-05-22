@@ -52,9 +52,13 @@ nps_table.nlargest(4, "nps_detractor")
 
 all_answers_grouped = df[variables.question_columns].mean()
 
+all_answers_grouped = all_answers_grouped[
+    all_answers_grouped.index != "in_the_area_outside_your_center"
+]
+
 most_positive_answers = pd.DataFrame(all_answers_grouped.nlargest(5))
 most_positive_answers.rename(
-    columns={0: "% Student Answering Positively"}, inplace=True
+    columns={0: "% of Student Answering Positively"}, inplace=True
 )
 most_positive_answers = most_positive_answers.rename(index=column_dict)
 most_positive_answers.to_pickle("../data/interim/most_positive_answers.pkl")
@@ -62,7 +66,7 @@ most_positive_answers.to_pickle("../data/interim/most_positive_answers.pkl")
 
 most_negative_answers = pd.DataFrame(all_answers_grouped.nsmallest(5))
 most_negative_answers.rename(
-    columns={0: "% Student Answering Positively"}, inplace=True
+    columns={0: "% of Student Answering Positively"}, inplace=True
 )
 most_negative_answers = most_negative_answers.rename(index=column_dict)
 most_negative_answers.to_pickle("../data/interim/most_negative_answers.pkl")
@@ -93,6 +97,8 @@ most_positive_sites.to_pickle("../data/interim/most_positive_sites.pkl")
 
 count_positive_by_class = positive_by_group(df, "high_school_graduating_class_c")
 
+count_positive_by_nps = positive_by_group(df, "NPS_Score")
+
 count_positive_by_gender = positive_by_group(df, "Gender_c")
 
 count_positive_by_ethnicity = positive_by_group(df, ["Ethnic_background_c"])
@@ -103,7 +109,7 @@ count_positive_by_gpa = positive_by_group(df, ["Most_Recent_GPA_Cumulative_bucke
 count_positive_by_gender_ethnicity = positive_by_group(
     df, ["Gender_c", "Ethnic_background_c"]
 )
-
+count_positive_by_gender_ethnicity
 
 # # Find outliers by various groupings
 

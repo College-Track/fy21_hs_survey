@@ -22,7 +22,7 @@ df = pd.read_pickle(filename)
 executive_summary_pt1 = open("text/executive_summary_pt1.md", "r").read()
 
 executive_summary_pt1 = executive_summary_pt1.format_map(
-    SafeDict(previous_range="80% - 90%", nps_score="53%")
+    SafeDict(previous_range="80% - 90%", nps_score="52%")
 )
 
 

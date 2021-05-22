@@ -1,4 +1,5 @@
 import pandas as pd
+from seaborn.miscplot import dogplot
 import variables
 import helpers
 import seaborn as sns
@@ -38,6 +39,8 @@ column_dict = (
     .set_index("clean_columns")
     .to_dict()["original_columns"]
 )
+
+
 historical_since_fy18 = pd.read_pickle("../data/interim/positive_growth_since_fy18.pkl")
 
 historical_since_fy18 = historical_since_fy18.rename(index=column_dict)
@@ -106,6 +109,12 @@ nd_df_subset = nd_df_subset[nd_df_subset.question != "in_the_area_outside_your_c
 
 nd_df_subset = nd_df_subset[~nd_df_subset["grouping"].str.contains("site_short")]
 
+nd_df_subset = nd_df_subset[
+    nd_df_subset["question"]
+    != "through_ct_or_because_of_ct_i_have_taken_part_in_summer_activities_which_helped_"
+]
+
+
 most_divergent = nd_df_subset.groupby(["section", "type"]).head(1)
 
 most_divergent.sort_values(["value"], ascending=False, inplace=True)
@@ -140,93 +149,112 @@ survey_sections = {
 }
 
 
-def plot_notable_questions_graph(df, title, colors):
-    fig, ax = plt.subplots(figsize=(6.5, 3.75))
-    labels = ["\n".join(wrap(l, 25)) for l in df.original_columns]
-    labels = list(np.unique(labels))
-    colors = ["#78BE20", "#DA291C", "#666"]
-    if len(df.variable) == 2:
-        colors = ["#78BE20", "#666"]
+def plot_notable_questions_graph(df, title):
+    if len(df.question.unique()) == 1:
+        fig, ax = plt.subplots(figsize=(6.5, 3.75))
+        ax = [ax]
+        colors = [["#78BE20", "#DA291C", "#b3b3b3"]]
+        if len(df.variable) == 2:
+            colors = [["#78BE20", "#b3b3b3"]]
+    else:
+        fig, ax = plt.subplots(2, 1, figsize=(6.5, 4), sharex=True, sharey=False)
+        colors = [["#78BE20", "#b3b3b3"], ["#DA291C", "#b3b3b3"]]
     fig.suptitle(title, fontsize=12)
 
-    sns.barplot(
-        data=df,
-        x="value",
-        y="original_columns",
-        hue="variable",
-        ax=ax,
-        saturation=1,
-        orient="h",
-        palette=colors,
-    )
+    for i, question in enumerate(df.question.unique()):
+        _df_sub = df[df["question"] == question]
 
-    ax.legend(loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2, fontsize=8)
+        labels = ["\n".join(wrap(l, 25)) for l in _df_sub.original_columns]
+        labels = list(np.unique(labels))
 
-    ax.set_xlabel("% Students Answering Positive")
+        sns.barplot(
+            ax=ax[i],
+            data=_df_sub,
+            x="value",
+            y="original_columns",
+            hue="variable",
+            orient="h",
+            saturation=1,
+            palette=colors[i],
+        )
+        ax[i].set_yticklabels(labels, fontsize=10)
 
-    ax.set_yticklabels(labels, fontsize=10)
+        ax[i].set_ylabel("")
 
-    ax.set_ylabel("Question")
-    ax.xaxis.set_major_formatter(mtick.PercentFormatter(1, decimals=0))
-
-    for p in ax.patches:
-        width = p.get_width()  # get bar length
-        ax.text(
-            width + 0.01,  # set the text at 1 unit right of the bar
-            p.get_y() + p.get_height() / 2,  # get Y coordinate + X coordinate / 2
-            "{:.0%}".format(width),  # set variable to display, 2 decimals
-            ha="left",  # horizontal alignment
-            va="center",
-        )  # vertical alignment
+        for p in ax[i].patches:
+            width = p.get_width()  # get bar length
+            if width > 0:
+                ax[i].text(
+                    width + 0.01,  # set the text at 1 unit right of the bar
+                    p.get_y()
+                    + p.get_height() / 2,  # get Y coordinate + X coordinate / 2
+                    "{:.0%}".format(width),  # set variable to display, 2 decimals
+                    ha="left",  # horizontal alignment
+                    va="center",
+                )  # vertical alignment
+            else:
+                width = 0.00000001
+    if len(ax) == 1:
+        ax[0].set_xlabel("% of Students Answering Positive")
+        ax[0].xaxis.set_major_formatter(mtick.PercentFormatter(1, decimals=0))
+        ax[0].legend(
+            loc="upper center", bbox_to_anchor=(0.5, -0.17), ncol=2, fontsize=8
+        )
+    else:
+        ax[1].set_xlabel("% of Students Answering Positive")
+        ax[0].set_xlabel("")
+        ax[1].xaxis.set_major_formatter(mtick.PercentFormatter(1, decimals=0))
+        ax[0].legend(
+            loc="upper center", bbox_to_anchor=(0.5, -0.05), ncol=2, fontsize=8
+        )
+        ax[1].legend(
+            loc="upper center", bbox_to_anchor=(0.5, -0.30), ncol=2, fontsize=8
+        )
     return fig
 
 
 for survey_section, title in survey_sections.items():
     _df = nd_df_long[nd_df_long.section == survey_section]
     # _df.sort_values('value',inplace=True)
-    _plot = plot_notable_questions_graph(_df, title, colors)
+    _plot = plot_notable_questions_graph(_df, title)
     plot_filename = "../images/" + survey_section + "_plot.png"
     _plot.savefig(plot_filename)
 
 
-custom_palette = {}
-for q in set(nd_df_long.original_columns):
-    score_type = nd_df_long[nd_df_long.original_columns == q]["type"]
-    if score_type == "above_average":
-        custom_palette[q] = "#78BE20"
-    elif score_type == "below_average":
-        custom_palette[q] = "#DA291C"
-    else:
-        custom_palette[q] = "#666666"
+# plot_notable_questions_graph(_df_academic, "test")
 
-#####
-
-test = nd_df_subset[nd_df_subset.section == "virtual_programming_section"]
-
-test[test.type == "above_average"].index_name.value_counts()
-
-test[test.type == "below_average"].index_name.value_counts()
+# plot_notable_questions_graph(_df_student_life, "test")
 
 
-test.index_name.value_counts()
+# test = nd_df_subset[nd_df_subset.section == "virtual_programming_section"]
+
+# test[test.type == "above_average"].index_name.value_counts()
+
+# test[test.type == "below_average"].index_name.value_counts()
 
 
-df[
-    [
-        "site_short",
-        "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_ct_st",
-        "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_peers",
-        "because_of_coaching_i_am_more_self_motivated_and_have_a_sense_of_ownership_to_ac",
-    ]
-].groupby("site_short").mean()
+# test.index_name.value_counts()
 
-test_df = df[
-    [
-        # 'site_short',
-        "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_ct_st",
-        "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_peers",
-        "because_of_coaching_i_am_more_self_motivated_and_have_a_sense_of_ownership_to_ac",
-    ]
-]
 
-test_df.melt().mean()
+# df[
+#     [
+#         "site_short",
+#         "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_ct_st",
+#         "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_peers",
+#         "because_of_coaching_i_am_more_self_motivated_and_have_a_sense_of_ownership_to_ac",
+#     ]
+# ].groupby("site_short").mean()
+
+# test_df = df[
+#     [
+#         "site_short",
+#         "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_ct_st",
+#         "because_of_coaching_i_have_been_able_to_form_supportive_relationships_with_peers",
+#         "because_of_coaching_i_am_more_self_motivated_and_have_a_sense_of_ownership_to_ac",
+#     ]
+# ]
+
+# test = test_df.melt(id_vars="site_short")
+
+# test.groupby("site_short").sum()
+
