@@ -44,7 +44,7 @@ groupings = [
 # )
 
 notable_divergencies_df = helpers.determine_notable_questions(
-    df, groupings, variables.ps_question_columns, 0.10, 25
+    df, groupings, variables.ps_question_columns, 0.05, 15
 )
 
 notable_divergencies_df.to_csv("../data/interim/ps_notable_divergencies_df.csv")
