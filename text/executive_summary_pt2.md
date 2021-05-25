@@ -32,13 +32,6 @@ Like all our students, when asked about virtual programming our black male stude
 
 Across every question asked, there was not a single question this group of students had a notably less favorable outlook on than the College Track average, and on roughly 14% of questions asked they had a notably higher positivity rate than their peers.
 
-#### AAPI Students
-Due to the increased number of hate crimes targeting Asian Americans we wanted to better understand the ethnic backgrounds of our students identifying as Asian American.
-
-We asked students to self-identify their ethnicity from a list of our existing ethnic descriptions in Salesforce but with new options to more accurately describe students of Asian descent - for example East Asian, Southeast Asian, and Filipino.
-
-Overall, around 19% of our students responded to this question and selected an ethnicity that didn't equate to what they identified as in Salesforce. The majority of these responses were students who identified as East Asian (90 students) and Southeast Asian (64 students). In addition, 31 students identified themselves as multiracial when they previously had been identified with only a single ethnicity.
-
 ### Section Highlights
 The following section highlights some noteworthy findings on specific questions asked. For each of these sections, there is a chart that highlights if a specific group of students across College Track was notably above or below the average positive rate for a given question.
 
@@ -149,3 +142,10 @@ Overall % Positive Answers in Section: 66%
 Site With Highest Positive Rate: Boyle Heights
 
 For this section, no group of students stood out as having a notably higher or lower positivity rate compared to the College Track average on each question.
+
+#### AAPI Students
+Due to the increased number of hate crimes targeting Asian Americans we wanted to better understand the ethnic backgrounds of our students identifying as Asian American.
+
+We asked students to self-identify their ethnicity from a list of our existing ethnic descriptions in Salesforce but with new options to more accurately describe students of Asian descent - for example East Asian, Southeast Asian, and Filipino.
+
+Overall, around 19% of our students responded to this question and selected an ethnicity that didn't equate to what they identified as in Salesforce. The majority of these responses were students who identified as East Asian (90 students) and Southeast Asian (64 students). In addition, 31 students identified themselves as multiracial when they previously had been identified with only a single ethnicity.
