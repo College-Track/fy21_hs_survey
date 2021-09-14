@@ -77,4 +77,6 @@ report = dp.Report(
     # dp.DataTable(subset, caption=f'Dataset for {countries}'),
 )
 
-report.publish(name="FY21 HS Survey Executive Summary", open=True)
+report.publish(
+    name="FY21 HS Survey Executive Summary", open=True, visibility=dp.Visibility.PUBLIC
+)

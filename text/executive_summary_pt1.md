@@ -21,6 +21,7 @@ Likewise, across all questions, the following questions were the least positive.
 {most_negative}
 
 Note, many of the questions with less positive responses were new questions added to understand how students were handling remote education.
+
 A few sites stood out as having particularly positive responses across all their questions. The Durant Center, Boyle Heights, Ward 8, and Denver all had most students answering positively to over 60% of questions asked.*
 
 The Durant Center, in particular, had a notably higher positive response rate than the College Track average.
